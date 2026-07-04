@@ -19,8 +19,10 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::post('/contact', [ContactController::class, 'store']);
 
 // ===== AUTH API =====
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/resend-verification', [AuthController::class, 'resendVerification'])->name('resend-verification');
+
 
 // ===== PRIVATE API (Login Required) =====
 Route::middleware('auth:sanctum')->group(function () {

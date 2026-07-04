@@ -67,9 +67,9 @@ class ProductController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        $products = $query->latest()->get();
+        $products = $query->latest()->paginate(12);
 
-        $products->transform(function ($product) {
+        $products->getCollection()->transform(function ($product) {
             $product->image_url = $product->image
                 ? Storage::url($product->image)
                 : null;

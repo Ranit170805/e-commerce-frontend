@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -13,6 +14,23 @@ use App\Http\Controllers\Admin\NotificationController;
 Route::get('/', function () {
     return redirect()->route('admin.login');
 });
+
+// ===== PUBLIC AUTH ROUTES =====
+Route::match(['get', 'post'], '/register', function () {
+    return response()->json([
+        'success' => true,
+        'message' => 'Use POST /api/register to create an account.',
+    ], 200);
+})->name('register');
+
+Route::match(['get', 'post'], '/login', function () {
+    return response()->json([
+        'success' => true,
+        'message' => 'Use POST /api/login to sign in.',
+    ], 200);
+})->name('login');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ===== ADMIN ROUTES =====
 Route::prefix('admin')->name('admin.')->group(function () {
